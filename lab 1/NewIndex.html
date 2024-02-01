@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Забавные котики</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            background-color: #555172;
+        }
+
+        header {
+            background-color: #000000;
+            color: white;
+            padding: 10px 0;
+        }
+
+        main {
+            padding: 20px;
+            margin-bottom: 60px;
+        }
+
+        footer {
+            background-color: #000000;
+            color: white;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            margin: 0px;
+        }
+
+        .images-container {
+            overflow-x: 50%;
+            white-space: nowrap;
+        }
+
+        img {
+            max-width: 50%;
+            height: 50%;
+            margin-right: 10px;
+            display: none;
+        }
+
+        img.active {
+            display: block;
+        }
+
+        #prevButton, #nextButton {
+            cursor: pointer;
+            padding: 10px;
+            background-color: #333;
+            color: white;
+            border: none;
+            margin: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Добро пожаловать, какой вы сегодня котик?</h1>
+    </header>
+
+    <main>
+        <h2>О нас</h2>
+        <p>Привет! Если тебе грустно, то ты пришел по адресу. У нас много котиков, чтобы тебя улыбнуть</p>
+
+        <h2>Смешные котики</h2>
+        <center>
+            <div class="images-container">
+            <img class="cat-image active" src="1.jpg" alt="Забавный котик">
+            <img class="cat-image" src="2.jpg" alt="Забавный котик">
+            <img class="cat-image" src="3.jpg" alt="Забавный котик">
+            <img class="cat-image" src="4.jpg" alt="Забавный котик">
+            <img class="cat-image" src="5.jpg" alt="Забавный котик">
+            <img class="cat-image" src="6.jpg" alt="Забавный котик">
+            <img class="cat-image" src="7.jpg" alt="Забавный котик">
+            <img class="cat-image" src="8.jpg" alt="Забавный котик">
+            <img class="cat-image" src="9.jpg" alt="Забавный котик">
+            <img class="cat-image" src="10.jpg" alt="Забавный котик">
+            <img class="cat-image" src="11.jpg" alt="Забавный котик">
+            <img class="cat-image" src="12.jpg" alt="Забавный котик">
+            <img class="cat-image" src="13.jpg" alt="Забавный котик">
+            <img class="cat-image" src="14.jpg" alt="Забавный котик">
+            <img class="cat-image" src="15.jpg" alt="Забавный котик">
+            <img class="cat-image" src="16.jpg" alt="Забавный котик">
+            <img class="cat-image" src="17.jpg" alt="Забавный котик">
+            <img class="cat-image" src="18.jpg" alt="Забавный котик">
+            <img class="cat-image" src="19.jpg" alt="Забавный котик">
+            <img class="cat-image" src="20.jpg" alt="Забавный котик">
+            <img class="cat-image" src="21.jpg" alt="Забавный котик">
+            <img class="cat-image" src="22.jpg" alt="Забавный котик">
+            <img class="cat-image" src="23.jpg" alt="Забавный котик">
+            <img class="cat-image" src="24.jpg" alt="Забавный котик">
+            <img class="cat-image" src="25.jpg" alt="Забавный котик">
+            <img class="cat-image" src="26.jpg" alt="Забавный котик">
+            <img class="cat-image" src="27.jpg" alt="Забавный котик">
+            <img class="cat-image" src="28.jpg" alt="Забавный котик">
+            <img class="cat-image" src="29.jpg" alt="Забавный котик">
+            </div>
+        </center>
+
+        <button id="prevButton" onclick="changeImage(-1)">Предыдущая</button>
+        <button id="nextButton" onclick="changeImage(1)">Следующая</button>
+
+        <h2>Контакты</h2>
+        <p>Свяжитесь с нами по адресу: KotikMemes@mail.ru<br>
+        или по номеру: +7(123)-456-78-90</p>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Забавные коти</p>
+    </footer>
+
+    <script>
+        let currentImageIndex = 0;
+        const catImages = document.querySelectorAll('.cat-image');
+
+        function changeImage(offset) {
+            currentImageIndex += offset;
+
+            if (currentImageIndex < 0) {
+                currentImageIndex = catImages.length - 1;
+            } else if (currentImageIndex >= catImages.length) {
+                currentImageIndex = 0;
+            }
+
+            updateImage();
+        }
+
+        function updateImage() {
+            catImages.forEach((image, index) => {
+                if (index === currentImageIndex) {
+                    image.classList.add('active');
+                } else {
+                    image.classList.remove('active');
+                }
+            });
+        }
+    </script>
+</body>
+</html>
