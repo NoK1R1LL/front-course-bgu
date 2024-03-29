@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lab3</title>
+</head>
+
+<body>
+    <table width="100%" cellspacing="0" cellpadding="5">
+        <tr>
+            <td width="50%" valign="top">
+                <h2>Задание 1. Вариант 10.</h2>
+                <p> 10.Реализовать тип Length, который принимает массив и возвращает длину этого кортежа. <br>
+                    type array1 = ["test1", "test2", "test3", "test4"];<br>
+                    type array2 = [<br>
+                    "test1",<br>
+                    "test2",<br>
+                    "test3",<br>
+                    "test4",<br>
+                    "test5"<br>
+                    ];<br>
+                    type array1Length = Length<array1>; // 4<br>
+                        type array2Length = Length<array2>; // 5<br>
+                </p>
+                <div>
+                    <h3>Array 1 Length: <span id="array1Length"></span></h2>
+                        <h3>Array 2 Length: <span id="array2Length"></span></h2>
+                </div>
+            </td>
+            <td valign="top">
+                <h2>Задание 2. Вариант 10.</h2>
+                <p> 10. Дан паттерн в виде строки, состоящей из строчных английских букв.<br>
+                    Дана строка, состоящая из слов, разделённых пробелом. Определить,<br>
+                    соответствует ли данная строка данному паттерну.<br>
+                    Например:<br>
+                    pattern = "abba", s = "dog cat cat dog". True<br>
+                    pattern = "abba", s = "dog cat cat fish". False<br>
+                    pattern = "aaaa", s = "dog cat cat dog". False<br>
+                </p>
+                <h2>Проверка Паттерна Слов</h1>
+                <label for="pattern">Паттерн:</label>
+                <input type="text" id="pattern"><br>
+                <br><label for="sentence">Предложение:</label>
+                <input type="text" id="sentence"><br>
+                <br><button onclick="checkPattern()">Проверить Паттерн</button>
+                <p id="result"></p>
+            </td>
+        </tr>
+    </table>
+
+
+
+
+    <script>
+        "use strict";
+
+        var Length = function (arr) { return arr.length; };
+
+        var array1 = ["test1", "test2", "test3", "test4"];
+        var array2 = ["test1", "test2", "test3", "test4", "test5"];
+        var array1Length = Length(array1); // 4
+        var array2Length = Length(array2); // 5
+
+        document.getElementById('array1Length').textContent = array1Length;
+        document.getElementById('array2Length').textContent = array2Length;
+
+        function wordPattern(pattern, s) {
+            const words = s.split(' ');
+
+            if (pattern.length !== words.length) {
+                return false;
+            }
+
+            const patternMap = new Map();
+            const wordMap = new Map();
+
+            for (let i = 0; i < pattern.length; i++) {
+                const char = pattern[i];
+                const word = words[i];
+
+                if (patternMap.has(char)) {
+                    if (patternMap.get(char) !== word) {
+                        return false;
+                    }
+                } else {
+                    if (wordMap.has(word)) {
+                        return false;
+                    }
+                    patternMap.set(char, word);
+                    wordMap.set(word, char);
+                }
+            }
+            return true;
+        }
+
+        function checkPattern() {
+            const pattern = document.getElementById('pattern').value;
+            const sentence = document.getElementById('sentence').value;
+
+            const result = wordPattern(pattern, sentence);
+
+            const resultElement = document.getElementById('result');
+            resultElement.innerText = result ? 'Паттерн соответствует предложению.' : 'Паттерн не соответствует предложению.';
+        }
+    </script>
+</body>
+
+</html>
