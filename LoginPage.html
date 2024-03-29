@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login and Registration</title>
+    <style>
+        main {
+    text-align: center;
+    padding: 20px;
+}
+
+form {
+    max-width: 300px;
+    margin: 0 auto;
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 50px rgba(0, 0, 0, 0.1);
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+input[type="text"],
+input[type="password"] {
+    width: 90%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+button {
+    width: 97%;
+    padding: 10px;
+    background-color: #007bff;
+    border: none;
+    color: #fff;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+.button-width {
+    width: calc(70% - 10px);
+}
+
+.button1-width {
+    width: calc(30% - 10px);
+}
+
+#error,
+#registerError {
+    margin-top: 10px;
+}
+    </style>
+</head>
+<body>
+
+<main>
+    <form id="loginForm">
+        <h2>Вход</h2>
+        <label for="username">Имя пользователя:</label><br>
+        <input type="text" id="username" name="username" required><br>
+        <label for="password">Пароль:</label><br>
+        <input type="password" id="password" name="password" required><br><br>
+        <button type="submit">Войти</button>
+        <p id="error" style="color: red;"></p>
+        <p>Нет аккаунта? <a href="#" id="registerLink">Зарегистрироваться</a></p>
+    </form>
+</main>
+
+<main id="registerForm" style="display: none;">
+    <form id="registerForm">
+        <h2>Регистрация</h2>
+        <label for="newUsername">Имя пользователя:</label><br>
+        <input type="text" id="newUsername" name="newUsername" required><br>
+        <label for="newPassword">Пароль:</label><br>
+        <input type="password" id="newPassword" name="newPassword" required><br><br>
+        <button id="registerButton" class="button-width" type="submit">Зарегистрироваться</button>
+        <button id="returnToLogin" class="button1-width" type="button" id="returnToLogin">Назад</button>
+    </form>
+    <p id="registerError" style="color: red;"></p>
+</main>
+
+<script>
+    document.getElementById("loginForm").addEventListener("submit", function(event) {
+    event.preventDefault(); 
+
+    // Получаем значения полей ввода
+    var username = document.getElementById("username").value;
+    var password = document.getElementById("password").value;
+
+    // Здесь может быть ваша логика проверки данных пользователя
+    // В данном примере проверяется только один конкретный пользователь
+    if (username === "admin" && password === "password") {
+        // Если данные верны, перенаправляем пользователя на другую страницу
+        window.location.href = "home.html"; // Путь к вашей домашней странице
+    } else {
+        // Если данные неверны, выводим сообщение об ошибке
+        document.getElementById("error").textContent = "Неверное имя пользователя или пароль.";
+    }
+});
+
+document.getElementById("returnToLogin").addEventListener("click", function(event) {
+    event.preventDefault(); // Предотвращаем отправку формы по умолчанию
+
+    // Скрываем форму регистрации и показываем форму входа
+    document.getElementById("registerForm").style.display = "none";
+    document.getElementById("loginForm").style.display = "block";
+
+    // Очищаем предыдущие сообщения об ошибках
+    document.getElementById("registerError").textContent = "";
+});
+
+document.getElementById("registerLink").addEventListener("click", function(event) {
+    event.preventDefault(); 
+
+    // Скрываем форму входа и показываем форму регистрации
+    document.getElementById("loginForm").style.display = "none";
+    document.getElementById("registerForm").style.display = "block";
+});
+
+document.getElementById("registerForm").addEventListener("submit", function(event) {
+    event.preventDefault(); 
+
+    // Получаем значения полей ввода
+    var newUsername = document.getElementById("newUsername").value;
+    var newPassword = document.getElementById("newPassword").value;
+
+    // Получаем зарегистрированных пользователей из localStorage
+    var registeredUsers = JSON.parse(localStorage.getItem("registeredUsers")) || [];
+
+    // Проверяем, есть ли уже пользователь с таким именем
+    var existingUser = registeredUsers.find(function(user) {
+        return user.username === newUsername;
+    });
+
+    if (existingUser) {
+        // Если пользователь уже существует, выводим сообщение об ошибке
+        document.getElementById("registerError").textContent = "Пользователь с таким именем уже существует.";
+    } else {
+        // Если пользователь не существует, добавляем его в список зарегистрированных пользователей
+        registeredUsers.push({ username: newUsername, password: newPassword });
+        localStorage.setItem("registeredUsers", JSON.stringify(registeredUsers));
+
+        // Перенаправляем пользователя на страницу "cat" после успешной регистрации
+        window.location.href = "cat.html"; // Путь к вашей странице с котиками
+    }
+});
+
+</script>
+</body>
+</html>

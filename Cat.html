@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Забавные котики</title>
+    <link rel="stylesheet" href="https://use.typekit.net/mbt4tna.css">
+    <link rel="stylesheet" href="https://use.typekit.net/kid2tin.css">
+    <style>
+        body {
+            text-align: center;
+            margin: 0;
+            padding: 0px;
+            background: var(--beige);
+
+
+            /*COLORS*/
+            --white: #F7F1E1;
+            --cream: #F6E6CB;
+            --dcream: #EACEA3;
+            --beige: #CDAD93;
+            --terracotta: #B9816D;
+            --dterracotta: #885444;
+            --peach: #E5AE8A;
+            --orange: #BF835A;
+            --green: #4B5243;
+            --dgreen: #2C3834;
+
+            /*FONTS*/
+            --mono: 'source-code-pro';
+            --display: 'lust-sans';
+
+        }
+
+        p{
+            font-size: 25px;
+        }
+
+        h2{
+            font-size: 40px;
+        }
+
+        header {
+            background-color: #000000;
+            color: white;
+            padding: 20px 0;
+            margin-bottom: 20px;
+        }
+
+        header h1 {
+            margin: 0;
+        }
+
+        header nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+
+        main {
+            padding: 20px;
+            margin-bottom: 60px;
+            position: relative;
+        }
+
+        footer {
+            background-color: #000000;
+            color: white;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            margin: 0px;
+            padding: 10px 0;
+        }
+
+        .images-container {
+            overflow-x: auto;
+            white-space: nowrap;
+            position: relative;
+            margin-bottom: 20px;
+            display: flex;
+        }
+
+        img.active {
+            display: block;
+        }
+
+        #prevButton,
+        #nextButton {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            font-size: 24px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        #prevButton {
+            left: 0;
+        }
+
+        #nextButton {
+            right: 0;
+        }
+
+        #prevButton:hover,
+        #nextButton:hover {
+            background-color: rgba(0, 0, 0, 0.7);
+        }
+
+        .minip {
+            width: 300px;
+            height: 450px;
+            background: var(--white);
+            position: relative;
+            box-shadow: 0px 0px 5px var(--terracotta);
+            display: inline-block;
+            vertical-align: top;
+            margin-right: 20px;
+        }
+
+        .minip .mg {
+            width: 100%;
+            height: 200px;
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            display: grid;
+            grid-template-columns: 250px 50px;
+            grid-template-rows: 100px 150px;
+            grid-template-areas:
+                'clr group'
+                'clr .....';
+            transition:
+                grid-template-columns .6s linear,
+                grid-template-rows .6s linear;
+        }
+
+        .minip:hover .mg {
+            grid-template-columns: 150px 150px;
+            grid-template-rows: 50px 300px;
+            transition:
+                grid-template-columns .6s linear,
+                grid-template-rows .6s linear;
+        }
+
+        .minip .mg .clr {
+            grid-area: clr;
+            background: var(--green);
+        }
+
+        .minip .mg .group {
+            font: 10px/10px var(--mono);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            writing-mode: vertical-lr;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .minip .mg .group span {
+            display: block;
+            transform: rotate(180deg);
+            transition:
+                transform .6s linear;
+        }
+
+        .minip:hover .mg .group span {
+            transform: rotate(270deg);
+            transition:
+                transform .6s linear;
+        }
+
+        .minip .av {
+            width: 200px;
+            height: 350px;
+            position: absolute;
+            bottom: 0px;
+            right: 0px;
+            background: var(--green);
+            background-position: top center;
+            background-size: cover;
+            transition:
+                width .6s linear,
+                height .6s linear;
+        }
+
+        .minip:hover .av {
+            width: 250px;
+            height: 400px;
+            transition:
+                width .6s linear,
+                height .6s linear;
+        }
+
+        .minip .info {
+            width: 160px;
+            max-height: 100px;
+            padding: 25px;
+            position: absolute;
+            bottom: 100px;
+            left: 0px;
+            background: var(--peach);
+            display: flex;
+            flex-flow: column nowrap;
+            justify-content: center;
+            align-content: flex-start;
+            transition:
+                bottom .6s linear;
+        }
+
+        .minip:hover .info {
+            bottom: 50px;
+            transition:
+                bottom .6s linear;
+        }
+
+        .minip .info name {
+            display: block;
+            font: 200 20px/25px var(--display);
+            text-indent: -25px;
+            letter-spacing: 1px;
+            margin: 0px 0px 10px 25px;
+        }
+
+        .minip .info deets {
+            font: 10px/15px var(--mono);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .minip a.plot {
+            width: 110px;
+            height: 30px;
+            position: absolute;
+            bottom: 85px;
+            left: 85px;
+            background: var(--dgreen);
+            font: 10px/10px var(--mono);
+            text-transform: uppercase;
+            color: var(--white);
+            text-decoration: none;
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition:
+                bottom .6s linear;
+        }
+
+        .minip:hover a.plot {
+            bottom: 35px;
+            transition:
+                bottom .6s linear;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        /* hide scrollbar */
+        ::-webkit-scrollbar {
+            width: 1px;
+            height: 1px;
+        }
+
+        ::-webkit-scrollbar-button {
+            width: 1px;
+            height: 1px;
+        }
+
+        .external {
+            overflow: hidden;
+            height: 100vh;
+        }
+
+        .horizontal-scroll-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100vh;
+            transform: rotate(-90deg) translate3d(0, -100vh, 0);
+            transform-origin: right top;
+            overflow-y: auto;
+            overflow-x: hidden;
+            padding: 0;
+            height: 100vw;
+            perspective: 1px;
+            transform-style: preserve-3d;
+            padding-bottom: 10rem;
+        }
+
+        .img-wrapper {
+            transform: rotate(90deg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 40vh;
+            transform-origin: 50% 50%;
+            transform: rotate(90deg) translateZ(.1px) scale(0.9) translateX(0px) translateY(-3vh);
+            transition: 1s;
+        }
+
+        .img-wrapper:hover {
+            min-height: 65vh;
+        }
+
+        .slower {
+            transform: rotate(90deg) translateZ(-.2px) scale(1.1) translateX(0%) translateY(-10vh);
+        }
+
+        .slower1 {
+            transform: rotate(90deg) translateZ(-.25px) scale(1.05) translateX(0%) translateY(8vh);
+        }
+
+        .slower2 {
+            transform: rotate(90deg) translateZ(-.3px) scale(1.3) translateX(0%) translateY(2vh);
+        }
+
+        .slower-down {
+            transform: rotate(90deg) translateZ(-.2px) scale(1.1) translateX(0%) translateY(16vh);
+        }
+
+        .faster {
+            transform: rotate(90deg) translateZ(.15px) scale(0.8) translateX(0%) translateY(14vh);
+        }
+
+        .faster1 {
+            transform: rotate(90deg) translateZ(.05px) scale(0.8) translateX(0%) translateY(10vh);
+        }
+
+        .fastest {
+            transform: rotate(90deg) translateZ(.22px) scale(0.7) translateX(-10vh) translateY(-15vh);
+        }
+
+        .vertical {
+            transform: rotate(90deg) translateZ(-.15px) scale(1.15) translateX(0%) translateY(0%);
+        }
+
+        .last {
+            transform: rotate(90deg) translateZ(-.2px) scale(1.1) translateX(25vh) translateY(-8vh);
+        }
+
+        .scroll-info {
+            position: absolute;
+            left: 1rem;
+        }
+
+        .scroll-info {
+            top: 1rem;
+        }
+
+        a {
+            color: inherit;
+            font-weight: 500;
+
+        }
+
+        .img-wrapper a {
+            overflow: hidden;
+            display: block;
+            padding: 1vh;
+            background: #efecdb;
+            box-shadow: 0 10px 50px #5f2f1182;
+        }
+
+        img {
+            max-width: 45vh;
+            max-height: 50vh;
+            transition: .5s;
+            vertical-align: top;
+            filter: saturate(40%) sepia(30%) hue-rotate(5deg);
+        }
+
+        a:hover img {
+            filter: none;
+        }
+
+        p {
+            margin: 0;
+        }
+
+        .scroll-info {
+            display: flex;
+            align-items: center;
+        }
+
+        .icon svg {
+            width: 50px;
+            fill: currentcolor;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <nav>
+            <a href="#main">Главная</a>
+            <a href="#about">О нас</a>
+            <a href="#contacts">Контакты</a>
+            <a href="#cats">Смешные котики</a>
+        </nav>
+    </header>
+
+    <h1 id="main">Добро пожаловать, какой вы сегодня котик?</h1>
+    
+    <div class="minip">
+        <div class="mg">
+            <div class="clr"></div>
+            <div class="group">
+                <span>Сонный</span>
+            </div>
+        </div>
+        <div class="av"
+            style="background-image: url('https://sun9-47.userapi.com/impg/6qwkxoe8jmG4u_2aVu__5PiHqU_f-SQo8i3tew/_i17VbsoJ4Y.jpg?size=1000x980&quality=96&sign=ad89c0f1dc17017dcdc4adb71aa93a0e&type=album');">
+        </div>
+        <div class="info">
+            <name>Котик №1</name>
+            <deets>
+                Тише будь котик спит
+            </deets>
+        </div>
+        <a class="plot" title="Выбрать" href="/cat.html">
+            Выбрать
+        </a>
+    </div>
+
+    <div class="minip">
+        <div class="mg">
+            <div class="clr"></div>
+            <div class="group">
+                <span>Влюбленный</span>
+            </div>
+        </div>
+        <div class="av"
+            style="background-image: url('https://sun9-4.userapi.com/impg/eWSv4leZC52caZ6xxGVdHDpO5gEyJ6Cbb5uf5Q/T3MeU10M5Fc.jpg?size=563x554&quality=96&sign=25570bd8c9032b8c4e51a317233395e2&type=album');">
+        </div>
+        <div class="info">
+            <name>Котик №2</name>
+            <deets>
+                Кусь любовный
+            </deets>
+        </div>
+        <a class="plot" title="Выбрать" href="/cat.html">
+            Выбрать
+        </a>
+    </div>
+
+    <div class="minip">
+        <div class="mg">
+            <div class="clr"></div>
+            <div class="group">
+                <span>депрессивный</span>
+            </div>
+        </div>
+        <div class="av"
+            style="background-image: url('https://sun9-4.userapi.com/impg/bpHxSn_wBEOg5K9qQ0hUlSkbiDJXJFPPgPHVXA/0Kb-ULwb30g.jpg?size=750x747&quality=96&sign=ef1594353e6e357e66c4ba75eeec0dd4&type=album');">
+        </div>
+        <div class="info">
+            <name>Котик №3</name>
+            <deets>
+                Качаю де прес сию
+            </deets>
+        </div>
+        <a class="plot" title="Выбрать" href="/cat.html">
+            Выбрать
+        </a>
+    </div>
+
+    <main>
+        <h2 id="about">О нас</h2>
+        <p>Привет! Если тебе грустно, то ты пришел по адресу. У нас много котиков, чтобы тебя улыбнуть<br>
+        Мы верим в силу позитива и радости, которые приносят котики. На нашем сайте ты найдешь самых разных котиков - от веселых и игривых до серьезных и задумчивых. Мы постоянно обновляем нашу коллекцию, чтобы каждый мог найти котика по своему вкусу.<br>
+        Не забывай заглядывать к нам, чтобы получать дозу позитива и умиротворения от наших милых пушистиков. Мы рады приветствовать тебя в нашем котиковом мире!</p>
+
+        <h2 id="contacts">Контакты</h2>
+        <p>Свяжитесь с нами по адресу: KotikMemes@mail.ru<br>
+            или по номеру: +7(123)-456-78-90</p>
+
+        <h2 id="cats">Смешные котики</h2>
+        <div class="external">
+            <div class="horizontal-scroll-wrapper">
+                <div class="img-wrapper slower">
+                    <a href="1.jpg" target="_blank" rel="noopener">
+                        <img src="1.jpg" alt="">
+                    </a>
+                </div>
+
+                <div class="img-wrapper faster">
+                    <a href="2.jpg" target="_blank" rel="noopener">
+                        <img src="2.jpg" alt="">
+                    </a>
+                </div>
+
+                <div class="img-wrapper slower vertical">
+                    <a href="3.jpg" target="_blank" rel="noopener">
+                        <img src="3.jpg" alt="">
+                    </a>
+                </div>
+
+                <div class="img-wrapper slower slower-down">
+                    <a href="4.jpg" target="_blank" rel="noopener">
+                        <img src="4.jpg" alt="">
+                    </a>
+                </div>
+
+                <div class="img-wrapper">
+                    <a href="5.jpg" target="_blank" rel="noopener">
+                        <img src="5.jpg" alt="">
+                    </a>
+                </div>
+
+                <div class="img-wrapper slower">
+                    <a href="6.jpg" target="_blank" rel="noopener">
+                        <img src="6.jpg" alt="">
+                    </a>
+                </div>
+
+                <div class="img-wrapper faster1">
+                    <a href="7.jpg" target="_blank" rel="noopener">
+                        <img src="7.jpg" alt="">
+                    </a>
+                </div>
+
+                <div class="img-wrapper slower slower2">
+                    <a href="8.jpg" target="_blank" rel="noopener">
+                        <img src="8.jpg" alt="">
+                    </a>
+                </div>
+
+                <div class="img-wrapper">
+                    <a href="9.jpg" target="_blank" rel="noopener">
+                        <img src="9.jpg" alt="">
+                    </a>
+                </div>
+
+                <div class="img-wrapper">
+                    <a href="10.jpg" target="_blank" rel="noopener">
+                        <img src="10.jpg" alt="">
+                    </a>
+                </div>
+
+                <div class="img-wrapper">
+                    <a href="11.jpg" target="_blank" rel="noopener">
+                        <img src="11.jpg" alt="">
+                    </a>
+                </div>
+
+                <div class="img-wrapper">
+                    <a href="12.jpg" target="_blank" rel="noopener">
+                        <img src="12.jpg" alt="">
+                    </a>
+                </div>
+
+                <div class="img-wrapper">
+                    <a href="13.jpg" target="_blank" rel="noopener">
+                        <img src="13.jpg" alt="">
+                    </a>
+                </div>
+
+                <div class="img-wrapper">
+                    <a href="14.jpg" target="_blank" rel="noopener">
+                        <img src="14.jpg" alt="">
+                    </a>
+                </div>
+
+                <div class="img-wrapper">
+                    <a href="15.jpg" target="_blank" rel="noopener">
+                        <img src="15.jpg" alt="">
+                    </a>
+                </div>
+
+                <div class="img-wrapper slower">
+                    <a href="16.jpg" target="_blank" rel="noopener">
+                        <img src="16.jpg" alt="">
+                    </a>
+                </div>
+
+                <div class="img-wrapper faster1">
+                    <a href="17.jpg" target="_blank" rel="noopener">
+                        <img src="17.jpg" alt="">
+                    </a>
+                </div>
+
+                <div class="img-wrapper slower slower2">
+                    <a href="18.jpg" target="_blank" rel="noopener">
+                        <img src="18.jpg" alt="">
+                    </a>
+                </div>
+
+                <div class="img-wrapper">
+                    <a href="19.jpg" target="_blank" rel="noopener">
+                        <img src="19.jpg" alt="">
+                    </a>
+                </div>
+
+                <div class="img-wrapper">
+                    <a href="20.jpg" target="_blank" rel="noopener">
+                        <img src="20.jpg" alt="">
+                    </a>
+                </div>
+
+                <div class="img-wrapper">
+                    <a href="21.jpg" target="_blank" rel="noopener">
+                        <img src="21.jpg" alt="">
+                    </a>
+                </div>
+
+                <div class="img-wrapper">
+                    <a href="22.jpg" target="_blank" rel="noopener">
+                        <img src="22.jpg" alt="">
+                    </a>
+                </div>
+
+                <div class="img-wrapper">
+                    <a href="23.jpg" target="_blank" rel="noopener">
+                        <img src="23.jpg" alt="">
+                    </a>
+                </div>
+
+                <div class="img-wrapper">
+                    <a href="24.jpg" target="_blank" rel="noopener">
+                        <img src="24.jpg" alt="">
+                    </a>
+                </div>
+
+                <div class="img-wrapper">
+                    <a href="25.jpg" target="_blank" rel="noopener">
+                        <img src="25.jpg" alt="">
+                    </a>
+                </div>
+
+                <div class="img-wrapper slower">
+                    <a href="26.jpg" target="_blank" rel="noopener">
+                        <img src="26.jpg" alt="">
+                    </a>
+                </div>
+
+                <div class="img-wrapper faster1">
+                    <a href="27.jpg" target="_blank" rel="noopener">
+                        <img src="27.jpg" alt="">
+                    </a>
+                </div>
+
+                <div class="img-wrapper slower slower2">
+                    <a href="28.jpg" target="_blank" rel="noopener">
+                        <img src="28.jpg" alt="">
+                    </a>
+                </div>
+
+                <div class="img-wrapper">
+                    <a href="29.jpg" target="_blank" rel="noopener">
+                        <img src="29.jpg" alt="">
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Забавные коти</p>
+    </footer>
+
+    <script>
+        // Функция для вывода уведомления
+        function notifySelectedCat(catName) {
+            alert("Вы выбрали котика: " + catName);
+        }
+
+        // Функция для обработки клика на кнопке "Выбрать"
+        function selectCat(catName, event) {
+            // Вызываем функцию для вывода уведомления
+            notifySelectedCat(catName);
+            // Останавливаем выполнение действия по умолчанию (переход по ссылке)
+            event.preventDefault();
+        }
+
+        // Получаем все кнопки "Выбрать"
+        var selectButtons = document.querySelectorAll('.plot');
+
+        // Добавляем обработчик события клика на каждую кнопку "Выбрать"
+        selectButtons.forEach(function (button) {
+            button.addEventListener('click', function (event) {
+                // Получаем имя котика из его родительского элемента
+                var catName = this.parentNode.querySelector('name').textContent;
+                // Вызываем функцию для выбора котика
+                selectCat(catName, event);
+            });
+        });
+    </script>
+</body>
+</html>
